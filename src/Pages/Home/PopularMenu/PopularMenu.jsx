@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
+import MenuItem from "../../Shared/MenuItem/MenuItem";
 
 const PopularMenu = () => {
     const [menu, setMenu] = useState([]);
@@ -19,6 +20,15 @@ const PopularMenu = () => {
             heading="From Our Menu"
             subHeading="Popular Items"
             ></SectionTitle>
+
+            <div>
+                {
+                    menu.map(item => <MenuItem
+                        key={item.id}
+                        item={item}
+                    ></MenuItem>)
+                }
+            </div>
         </section>
     );
 };
