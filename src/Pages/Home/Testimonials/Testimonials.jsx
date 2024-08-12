@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from 'swiper/modules';
+import { Autoplay, Navigation } from 'swiper/modules';
 
 // Import Swiper styles
 import "swiper/css";
@@ -27,7 +27,14 @@ const Testimonials = () => {
                 heading={'Testimonials'}
             ></SectionTitle>
 
-            <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
+            <Swiper 
+                navigation={true} 
+                autoplay={{
+                    delay: 2500,
+                    disableOnInteraction: false,
+                  }}
+                modules={[Autoplay, Navigation]} 
+                className="mySwiper">
 
                 {
                     reviews.map(review => <SwiperSlide
