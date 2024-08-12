@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper";
+import { Navigation } from 'swiper/modules';
 
 // Import Swiper styles
 import "swiper/css";
@@ -14,7 +14,8 @@ const Testimonials = () => {
     const [reviews, setReviews] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/reviews')
+        // fetch('http://localhost:5000/reviews')
+        fetch('reviews.json')
             .then(res => res.json())
             .then(data => setReviews(data))
     }, [])
