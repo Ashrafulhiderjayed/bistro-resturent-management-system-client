@@ -1,5 +1,5 @@
 
-const Order = () => {
+const MenuCategory = () => {
     return (
         <div>
             
@@ -7,4 +7,4 @@ const Order = () => {
     );
 };
 
-export default Order;
+export default MenuCategory;
