@@ -11,9 +11,10 @@ const PopularMenu = () => {
         .then(data => {
             const popularItems = data.filter(item => item.category === 'popular');
             setMenu(popularItems);
-            console.log(popularItems);
+            // console.log(popularItems);
         })
     },[])
+    
     return (
         <section>
             <SectionTitle
@@ -24,7 +25,7 @@ const PopularMenu = () => {
             <div className="grid md:grid-cols-2 gap-10">
                 {
                     menu.map(item => <MenuItem
-                        key={item.id}
+                        key={item._id}
                         item={item}
                     ></MenuItem>)
                 }
