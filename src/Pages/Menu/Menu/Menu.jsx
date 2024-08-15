@@ -3,6 +3,7 @@ import Cover from "../../Shared/Cover/Cover";
 import menuImg from "../../../assets/menu/menu-bg.png";
 import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
 import MenuCategory from "../MenuCategory/MenuCategory";
+import PopularMenu from "../../Home/PopularMenu/PopularMenu";
 
 const Menu = () => {
     return (
@@ -11,6 +12,7 @@ const Menu = () => {
                 <title>Bistro | Menu</title>
             </Helmet>
             <Cover img={menuImg} title="our menu"></Cover>
+            <PopularMenu></PopularMenu>
             {/* main cover */}
             <SectionTitle subHeading="Don't Miss" heading="Today's Offer"></SectionTitle>
             {/* offered menu items */}
