@@ -1,9 +1,11 @@
+import Cover from "../../Shared/Cover/Cover";
+import orderCover from "../../../assets/shop/orderCover.jpg"
 
 const Order = () => {
     return (
-        <div>
-            
-        </div>
+        <section>
+            <Cover img={orderCover}></Cover>
+        </section>
     );
 };
 
