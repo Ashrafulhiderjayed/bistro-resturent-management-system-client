@@ -1,6 +1,33 @@
-import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
+import { useEffect, useRef, useState } from 'react';
+import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 
 const Login = () => {
+  const captchaRef = useRef(null);
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect( () =>{
+    loadCaptchaEnginge(6);
+  }, [])
+
+    const handleLogin = (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const email = form?.email?.value;
+        const password = form?.password?.value;
+        // console.log(email, password);
+    }
+
+    const handleValidateCaptcha = () => {
+      const user_captcha_value = captchaRef.current.value;
+      if(validateCaptcha(user_captcha_value)) {
+        setDisabled(false);
+        console.log('Captcha validated successfully');
+      }
+      else {
+        setDisabled(true);
+        console.log('Captcha validation failed');
+      }
+    }
     return (
         <section>
             <div className="hero bg-base-200 min-h-screen">
@@ -13,7 +40,7 @@ const Login = () => {
       </p>
     </div>
     <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-      <form className="card-body">
+      <form onClick={handleLogin} className="card-body">
         <div className="form-control">
           <label className="label">
             <span className="label-text">Email</span>
@@ -33,11 +60,12 @@ const Login = () => {
           <label className="label">
             <LoadCanvasTemplate />
           </label>
-          <input type="password" name='password' placeholder="password" className="input input-bordered" required />
+          <input type="text" ref={captchaRef} name='captcha' placeholder="Type the text above" className="input input-bordered" required />
+          <button onClick={handleValidateCaptcha} className="btn btn-xs btn-outline mt-2">Validate</button>
     
         </div>
         <div className="form-control mt-6">
-          <button className="btn btn-primary">Login</button>
+          <button disabled={disabled} className="btn btn-primary">Login</button>
         </div>
       </form>
     </div>
