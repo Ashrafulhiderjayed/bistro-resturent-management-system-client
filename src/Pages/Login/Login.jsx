@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../providers/AuthProvider';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const captchaRef = useRef(null);
@@ -79,6 +80,7 @@ const Login = () => {
           </div>
         </div>
       </form>
+      <p><small>New Here? <Link to="/signUp">Create an account</Link> </small></p>
     </div>
   </div>
 </div>
