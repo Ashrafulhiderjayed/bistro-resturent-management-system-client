@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { useForm } from "react-hook-form"
+import { AuthContext } from "../../providers/AuthProvider";
 
 
 const Signup = () => {
@@ -8,9 +10,18 @@ const Signup = () => {
         watch,
         formState: { errors },
     } = useForm()
+    const { createUser } = useContext(AuthContext);
 
     const onSubmit = (data) => {
-        console.log(data)
+        // console.log(data)
+        createUser(data.email, data.password)
+            .then((result) => {
+                const loggedUser = result.user;
+                console.log(loggedUser)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
 
     console.log(watch("name")) // watch input value by passing the name of it
@@ -38,7 +49,7 @@ const Signup = () => {
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
-                                <input type="email" {...register("email", {required: true})} placeholder="email" className="input input-bordered" required />
+                                <input type="email" {...register("email", { required: true })} placeholder="email" className="input input-bordered" required />
                                 {errors.email && <span>Email is required</span>}
                             </div>
                             <div className="form-control">
