@@ -1,28 +1,39 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form"
 import { AuthContext } from "../../providers/AuthProvider";
+import Swal from "sweetalert2";
+import { Navigate } from "react-router-dom";
 
 
 const Signup = () => {
-    const {
-        register,
-        handleSubmit,
-        watch,
-        formState: { errors },
-    } = useForm()
-    const { createUser } = useContext(AuthContext);
+    const { register, handleSubmit, reset, watch, formState: { errors }} = useForm()
+    const { createUser, updateUserProfile } = useContext(AuthContext);
 
-    const onSubmit = (data) => {
-        // console.log(data)
+    const onSubmit = data => {
+        console.log(data);
         createUser(data.email, data.password)
-            .then((result) => {
+            .then(result => {
                 const loggedUser = result.user;
-                console.log(loggedUser)
+                console.log(loggedUser);
+
+                updateUserProfile(data.name, data.photoURL)
+                    .then(() => {
+                        console.log('user profile info updated')
+                        reset();
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'User created successfully.',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        Navigate('/');
+
+                    })
+                    .catch(error => console.log(error))
             })
-            .catch((error) => {
-                console.log(error)
-            })
-    }
+    };
+
 
     console.log(watch("name")) // watch input value by passing the name of it
     return (
@@ -38,12 +49,19 @@ const Signup = () => {
                     </div>
                     <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
                         <form onSubmit={handleSubmit(onSubmit)} className="card-body">
-                            <div className="form-control">
+                        <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Name</span>
                                 </label>
-                                <input type="text" {...register("name", { required: true })} placeholder="Enter Name" className="input input-bordered" required />
-                                {errors.name && <span className="text-red-500">Name is required</span>}
+                                <input type="text"  {...register("name", { required: true })} name="name" placeholder="Name" className="input input-bordered" />
+                                {errors.name && <span className="text-red-600">Name is required</span>}
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Photo URL</span>
+                                </label>
+                                <input type="text"  {...register("photoURL", { required: true })} placeholder="Photo URL" className="input input-bordered" />
+                                {errors.photoURL && <span className="text-red-600">Photo URL is required</span>}
                             </div>
                             <div className="form-control">
                                 <label className="label">
