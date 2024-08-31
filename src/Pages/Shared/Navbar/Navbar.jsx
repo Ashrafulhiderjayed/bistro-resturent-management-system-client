@@ -17,8 +17,8 @@ const NavBar = () => {
         <li><Link to="/menu">Our Menu</Link></li>
         <li><Link to="/secret">secret</Link></li>
         <li><Link>
-            <button className="btn">
-                Cart <HiShoppingCart />
+            <button className="btn btn-neutral">
+                  <HiShoppingCart className="text-xl" />
                 <div className="badge badge-secondary">+0</div>
             </button>
         </Link></li>
