@@ -6,7 +6,7 @@ import axios from "axios";
 
 
 const FoodCard = ({item}) => {
-    const {name, image, price, recipe} = item;
+    const {name, image, price, recipe, _id} = item;
     const {user} = useAuth();
     const navigate = useNavigate();
 
@@ -23,10 +23,22 @@ const FoodCard = ({item}) => {
                 image,
                 price
             }
-            axios.post('http://localhost:5000/carts', cartItem);
-            // .then(res => {
-            //     console.log(res.data);
-            // })
+            axios.post('http://localhost:5000/carts', cartItem)
+            .then(res =>{
+                console.log(res.data)
+                if(res.data.insertedId){
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: `${name} added to cart!`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+                else{
+                    console.log('error')
+                }
+            })
         } 
         else {
             Swal.fire({
