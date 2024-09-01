@@ -17,7 +17,7 @@ const NavBar = () => {
         <li><Link to="/menu">Our Menu</Link></li>
         <li><Link to="/secret">secret</Link></li>
         <li><Link>
-            <button className="btn btn-neutral">
+            <button className="btn btn-neutral pb-2">
                   <HiShoppingCart className="text-xl" />
                 <div className="badge badge-secondary">+0</div>
             </button>

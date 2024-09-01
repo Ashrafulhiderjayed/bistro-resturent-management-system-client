@@ -1,7 +1,9 @@
+import useAuth from "../../../hooks/useAuth";
 
 
 const FoodCard = ({item}) => {
     const {name, image, price, recipe} = item;
+    const {user} = useAuth();
 
     const handleAddToCard = food =>{
         console.log(food);
