@@ -2,6 +2,7 @@ import Swal from "sweetalert2";
 import useAuth from "../../../hooks/useAuth";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 
 const FoodCard = ({item}) => {
@@ -16,9 +17,18 @@ const FoodCard = ({item}) => {
             // Add to cart logic here
             console.log(user.email, food);
             const cartItem = {
-                
+                menuId: _id,
+                email: user.email,
+                name,
+                image,
+                price
             }
-        } else {
+            axios.post('http://localhost:5000/carts', cartItem);
+            // .then(res => {
+            //     console.log(res.data);
+            // })
+        } 
+        else {
             Swal.fire({
                 title: "You are not Logged in",
                 text: "You won't be able to add this item!",
