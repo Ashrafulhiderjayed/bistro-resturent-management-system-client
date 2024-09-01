@@ -17,7 +17,7 @@ const NavBar = () => {
         <li><Link to="/menu">Our Menu</Link></li>
         <li><Link to="/secret">secret</Link></li>
         <li><Link>
-            <button className="btn btn-neutral pb-2">
+            <button className="btn">
                   <HiShoppingCart className="text-xl" />
                 <div className="badge badge-secondary">+0</div>
             </button>
@@ -50,7 +50,7 @@ const NavBar = () => {
                     <a className="btn btn-ghost normal-case text-xl">Bistro Boss</a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1">
+                    <ul className="menu menu-horizontal px-1 flex items-center">
                         {navOptions}
                     </ul>
                 </div>

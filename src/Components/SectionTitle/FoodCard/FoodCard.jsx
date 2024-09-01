@@ -1,12 +1,39 @@
+import Swal from "sweetalert2";
 import useAuth from "../../../hooks/useAuth";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 const FoodCard = ({item}) => {
     const {name, image, price, recipe} = item;
     const {user} = useAuth();
+    const navigate = useNavigate();
+
 
     const handleAddToCard = food =>{
-        console.log(food);
+        // console.log(food);
+        if(user && user?.email){
+            // Add to cart logic here
+            console.log(user.email, food);
+            const cartItem = {
+                
+            }
+        } else {
+            Swal.fire({
+                title: "You are not Logged in",
+                text: "You won't be able to add this item!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, Login"
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate('/login', {state: { from: location }})
+                }
+              });
+            // alert('You need to be logged in to add items to cart');
+        }
     }
     return (
         <div className="card w-96 bg-base-100 shadow-xl">
