@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 import useAuth from "../../../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useCart from "../../../hooks/useCart";
 
@@ -10,6 +10,7 @@ const FoodCard = ({item}) => {
     const {user} = useAuth();
     const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
+    const location = useLocation();
     const [, refetch] = useCart();
 
 
@@ -55,7 +56,7 @@ const FoodCard = ({item}) => {
                 confirmButtonText: "Yes, Login"
               }).then((result) => {
                 if (result.isConfirmed) {
-                    navigate('/login', {state: { from: location }})
+                    navigate('/login', {state: { from: location } })
                 }
               });
             // alert('You need to be logged in to add items to cart');
