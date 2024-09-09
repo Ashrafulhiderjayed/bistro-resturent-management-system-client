@@ -5,18 +5,17 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useCart from "../../../hooks/useCart";
 
 
-const FoodCard = ({item}) => {
-    const {name, image, price, recipe, _id} = item;
-    const {user} = useAuth();
+const FoodCard = ({ item }) => {
+    const { name, image, price, recipe, _id } = item;
+    const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
     const location = useLocation();
     const [, refetch] = useCart();
 
-
-    const handleAddToCard = food =>{
+    const handleAddToCard = food => {
         // console.log(food);
-        if(user && user?.email){
+        if (user && user?.email) {
             // Add to cart logic here
             console.log(user.email, food);
             const cartItem = {
@@ -27,24 +26,24 @@ const FoodCard = ({item}) => {
                 price
             }
             axiosSecure.post('/carts', cartItem)
-            .then(res =>{
-                console.log(res.data)
-                if(res.data.insertedId){
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: `${name} added to cart!`,
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                    //refetch cart to update the cart items
-                    refetch();
-                }
-                else{
-                    console.log('error')
-                }
-            })
-        } 
+                .then(res => {
+                    console.log(res.data)
+                    if (res.data.insertedId) {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: `${name} added to cart!`,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        //refetch cart to update the cart items
+                        refetch();
+                    }
+                    else {
+                        console.log('error')
+                    }
+                })
+        }
         else {
             Swal.fire({
                 title: "You are not Logged in",
@@ -54,11 +53,11 @@ const FoodCard = ({item}) => {
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
                 confirmButtonText: "Yes, Login"
-              }).then((result) => {
+            }).then((result) => {
                 if (result.isConfirmed) {
-                    navigate('/login', {state: { from: location } })
+                    navigate('/login', { state: { from: location } })
                 }
-              });
+            });
             // alert('You need to be logged in to add items to cart');
         }
     }
@@ -70,7 +69,7 @@ const FoodCard = ({item}) => {
                 <h2 className="card-title">{name}</h2>
                 <p>{recipe}</p>
                 <div className="card-actions justify-end">
-                    <button onClick={()=> handleAddToCard(item)} className="btn btn-outline bg-slate-100 border-0 border-b-4 border-orange-400 mt-4">Add to Cart</button>
+                    <button onClick={() => handleAddToCard(item)} className="btn btn-outline bg-slate-100 border-0 border-b-4 border-orange-400 mt-4">Add to Cart</button>
                 </div>
             </div>
         </div>

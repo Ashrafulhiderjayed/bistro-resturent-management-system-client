@@ -10,6 +10,7 @@ import Signup from "../Pages/Signup/Signup";
 import PrivateRoute from "./PrivateRoute";
 import Secret from "../Pages/Shared/Secret/Secret";
 import Dashboard from "../Layout/Dashboard";
+import Cart from "../Pages/Dashboard/Cart/Cart";
 
 
   export const router = createBrowserRouter([
@@ -49,8 +50,8 @@ import Dashboard from "../Layout/Dashboard";
       element: <Dashboard />,
       children: [
         {
-          path: "dashboard",
-          element: <Dashboard />,
+          path: "cart",
+          element: <Cart />,
         },
         // Add more dashboard routes here
       ],
