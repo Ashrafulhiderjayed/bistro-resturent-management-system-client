@@ -47,7 +47,7 @@ import Cart from "../Pages/Dashboard/Cart/Cart";
     // Dashboard routes
     {
       path: "/dashboard",
-      element: <Dashboard />,
+      element: <PrivateRoute><Dashboard /></PrivateRoute>,
       children: [
         {
           path: "cart",
