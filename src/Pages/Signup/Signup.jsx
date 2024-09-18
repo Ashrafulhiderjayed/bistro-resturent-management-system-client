@@ -2,8 +2,9 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form"
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import SocialLogin from "../../Components/SocialLogin/SocialLogin";
 
 
 const Signup = () => {
@@ -96,6 +97,8 @@ const Signup = () => {
                                 <button className="btn btn-primary">Sign Up</button>
                             </div>
                         </form>
+                        <p><small>Already Have Account? <Link to="/login">Login</Link> </small></p>
+                        <SocialLogin />
                     </div>
                 </div>
             </div>
