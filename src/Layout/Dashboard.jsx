@@ -20,7 +20,7 @@ const Dashboard = () => {
                             <li><NavLink to="/dashboard/addItems"><FaUtensils></FaUtensils>Add Items</NavLink></li>
                             <li><NavLink to="/dashboard/manageItems"><FaList></FaList> Manage Items</NavLink></li>
                             <li><NavLink to="/dashboard/manageBookings"><FaBook></FaBook> Manage Bookings</NavLink></li>
-                            <li><NavLink to="/dashboard/manageBookings"><FaUsers></FaUsers> All Users</NavLink></li>
+                            <li><NavLink to="/dashboard/users"><FaUsers></FaUsers> All Users</NavLink></li>
                         </> :
                         <>
                             <li>
