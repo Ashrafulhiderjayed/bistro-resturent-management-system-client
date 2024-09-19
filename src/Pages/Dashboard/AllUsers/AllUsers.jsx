@@ -1,3 +1,4 @@
+import { FaTrashAlt, FaUsers } from 'react-icons/fa';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 
@@ -29,9 +30,9 @@ const AllUsers = () => {
                                 </label>
                             </th>
                             <th>Name</th>
-                            <th>Job</th>
-                            <th>Favorite Color</th>
-                            <th></th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,7 +40,7 @@ const AllUsers = () => {
                         {
                             users.map((user, index) =><tr key={index}>
                             <th>
-                                {index + 1}
+                                {index + 1} 
                             </th>
                             <td>
                                 <div className="flex items-center gap-3">
@@ -60,9 +61,21 @@ const AllUsers = () => {
                                 {user.role === 'admin' ? 'admin' : <button></button>}
                             </td>
                             <td>Purple</td>
-                            <th>
-                                <button className="btn btn-ghost btn-xs">details</button>
-                            </th>
+                            <td>
+                                    { user.role === 'admin' ? 'Admin' : <button
+                                        onClick={() => handleMakeAdmin(user)}
+                                        className="btn btn-lg bg-orange-500">
+                                        <FaUsers className="text-white 
+                                        text-2xl"></FaUsers>
+                                    </button>}
+                                </td>
+                                <td>
+                                    <button
+                                        onClick={() => handleDeleteUser(user)}
+                                        className="btn btn-ghost btn-lg">
+                                        <FaTrashAlt className="text-red-600"></FaTrashAlt>
+                                    </button>
+                                </td>
                         </tr>)
                         }
                         
