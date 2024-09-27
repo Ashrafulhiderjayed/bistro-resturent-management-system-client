@@ -14,7 +14,16 @@ const useAxiosSecure = () =>{
     }, function (error) {
         // Do something with request error
         return Promise.reject(error);
-      })
+      });
+
+    // response interceptor to handle unauthorized access and refresh tokens
+    axiosSecure.interceptors.response.use(function(response){
+        return response;
+    }, (error) => {
+        const status = error.response.status;
+        console.log('status error in the interceptor', status);
+        return Promise.reject(error);
+    })
     return axiosSecure;
 };
 export default useAxiosSecure; 
