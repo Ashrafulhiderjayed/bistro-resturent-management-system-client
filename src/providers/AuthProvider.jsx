@@ -67,7 +67,7 @@ const AuthProvider = ({children}) => {
         }
 
 
-    }, [])
+    }, [axiosPublic])
 
 
     const authInfo = {

@@ -24,11 +24,12 @@ const useAxiosSecure = () =>{
     // response interceptor to handle unauthorized access and refresh tokens
     axiosSecure.interceptors.response.use(function(response){
         return response;
-    }, (error) => {
+    }, async(error) => {
         const status = error.response.status;
         console.log('status error in the interceptor', status);
-        // for 401 or 403 logout the user and move the user to the login
+        // for 401 or 403 logout the user and move the user to the login page
         if(status === 401 || status === 403){
+            await logout();
             navigate('/login')
         }
         return Promise.reject(error);
