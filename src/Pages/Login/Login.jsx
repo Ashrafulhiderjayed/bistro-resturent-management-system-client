@@ -1,14 +1,14 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../providers/AuthProvider';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import SocialLogin from '../../Components/SocialLogin/SocialLogin';
 
 const Login = () => {
   const captchaRef = useRef(null);
   const [disabled, setDisabled] = useState(true);
-
+  const navigate = useNavigate();
   const { signIn } = useContext(AuthContext);
 
   useEffect(() => {
@@ -28,10 +28,11 @@ const Login = () => {
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: "Your work has been saved",
+          title: "User Login Successful",
           showConfirmButton: false,
           timer: 1500
         });
+        navigate(from, {replace: true});
       })
   }
 
