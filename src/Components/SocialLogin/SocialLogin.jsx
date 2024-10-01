@@ -30,7 +30,7 @@ const SocialLogin = () => {
             <div className='text-center'>
                 <button onClick={handleGoogleSignIn} className="btn btn-neutral">
                     <FaGoogle className='mr-4'></FaGoogle>
-                    Button
+                    Google
                 </button>
             </div>
         </div>
