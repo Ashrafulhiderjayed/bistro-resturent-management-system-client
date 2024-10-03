@@ -2,11 +2,36 @@ import React from 'react';
 import SectionTitle from '../../../Components/SectionTitle/SectionTitle';
 import { useForm } from 'react-hook-form';
 import { FaUtensils } from 'react-icons/fa';
+import useAxiosPublic from '../../../hooks/useAxiosPublic';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
+// by default there are expiration=600 it means that auto deleted after certain time 
 
 const AddItems = () => {
     const { register, handleSubmit } = useForm();
-    const onSubmit = (data) => {
+    const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
+    
+    const onSubmit = async (data) => {
         console.log(data)
+        // upload image and get image url
+        const imageFile = { image: data.image[0] }
+        const res = await axiosPublic.post(image_hosting_api, imageFile, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        });
+        if(res.data.success){
+            //now send the menu data to the server with the image 
+            const menuItem = {
+                name: data.name,
+                category: data.category,
+                price: parseFloat(data.price),
+                recipe: data.recipe,
+                image: res.data.data.display_url
+            }
+        }
+        console.log(res.data);
     };
     return (
         <div>
