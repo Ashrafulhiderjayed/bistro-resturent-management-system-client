@@ -6,9 +6,8 @@ import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 
-const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY
-const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
-// by default there are expiration=600 it means that auto deleted after certain time 
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const AddItems = () => {
     const { register, handleSubmit, reset } = useForm();
@@ -16,37 +15,47 @@ const AddItems = () => {
     const axiosSecure = useAxiosSecure();
 
     const onSubmit = async (data) => {
-        console.log(data)
+        console.log(data);
         // upload image and get image url
-        const imageFile = { image: data.image[0] }
-        const res = await axiosPublic.post(image_hosting_api, imageFile, {
-            headers: { 'Content-Type': 'multipart/form-data' }
-        });
-        if(res.data.success){
-            //now send the menu data to the server with the image 
-            const menuItem = {
-                name: data.name,
-                category: data.category,
-                price: parseFloat(data.price),
-                recipe: data.recipe,
-                image: res.data.data.display_url
+        const imageFile = { image: data.image[0] };
+        try {
+            const res = await axiosPublic.post(image_hosting_api, imageFile, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+            if (res.data.success) {
+                // Now send the menu item data to the server
+                const menuItem = {
+                    name: data.name,
+                    category: data.category,
+                    price: parseFloat(data.price),
+                    recipe: data.recipe,
+                    image: res.data.data.display_url
+                };
+                
+                const menuRes = await axiosSecure.post('/menu', menuItem);
+                if (menuRes.data.insertedId) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: `${data.name} added successfully!`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    reset();
+                }
             }
-            const menuRes = await axiosSecure.post('/menu', menuItem);
-            if(menuRes.data.insertedId){
-                Swal.fire({
-                    position: 'top-end',
-                    icon:'success',
-                    title: `${data.name} added successfully!`,
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-                // reset form
-                reset();
-            }
-            console.log(menuRes.data);
+        } catch (error) {
+            console.error('Error:', error);
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Failed to add item',
+                text: 'An error occurred while adding the item.',
+                showConfirmButton: true
+            });
         }
-        console.log('with image url',res.data);
     };
+
     return (
         <div>
             <SectionTitle heading="add an item" subHeading="What's new?" />
