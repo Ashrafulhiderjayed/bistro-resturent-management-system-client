@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import useCart from '../../../hooks/useCart';
 import useAuth from '../../../hooks/useAuth';
+import Swal from 'sweetalert2';
 
 const CheckoutForm = () => {
     const [error, setError] = useState('');
@@ -12,7 +13,7 @@ const CheckoutForm = () => {
     const elements = useElements();
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
-    const [cart] = useCart();
+    const [cart, refetch] = useCart();
     const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
     useEffect(() => {
@@ -83,13 +84,23 @@ const CheckoutForm = () => {
                     price: totalPrice,
                     transactionId: paymentIntent.id,
                     date: new Date(), //utc date convert. use moment.js
-                    cartId: cart.map(item => item._id),
-                    menuItemId: cart.map(item => item.menuId),
+                    cartIds: cart.map(item => item._id),
+                    menuItemIds: cart.map(item => item.menuId),
                     status: 'pending'
                 }
 
                 const res = await axiosSecure.post('/payments', payment);
-                console.log('payment saved', res);
+                // console.log('payment saved', res);
+                refetch();
+                if(res.data?.paymentResult.insertedId){
+                    Swal.fire({
+                        position: 'top-end',
+                        icon:'success',
+                        title: 'Payment successful!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
             }
         }
     }
