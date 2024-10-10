@@ -87,7 +87,7 @@ import AdminHome from "../Pages/Dashboard/AdminHome/AdminHome";
         {
           path: "updateItem/:id",
           element: <AdminRoute><UpdateItem /></AdminRoute>,
-          loader: ({params}) => fetch(`http://localhost:5000/menu/${params.id}`)
+          loader: ({params}) => fetch(`https://bistro-server-vert.vercel.app/menu/${params.id}`)
         },
         {
           path: "manageItems",
