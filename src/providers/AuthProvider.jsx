@@ -50,15 +50,16 @@ const AuthProvider = ({children}) => {
                 .then(res => {
                     if(res.data.token){
                         localStorage.setItem('access-token', res.data.token);
+                        setLoading(false);
                     }
                 })
             }
             else{
                 // remove token (local storage, catching, in memory)
                 localStorage.removeItem('access-token');
+                setLoading(false);
             }
             console.log('current user', currentUser);
-            setLoading(false);
         });
 
 
