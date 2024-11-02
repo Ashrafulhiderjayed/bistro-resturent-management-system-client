@@ -17,7 +17,7 @@ const FoodCard = ({ item }) => {
         // console.log(food);
         if (user && user?.email) {
             // Add to cart logic here
-            console.log(user.email, food);
+            // console.log(user.email, food);
             const cartItem = {
                 menuId: _id,
                 email: user.email,
