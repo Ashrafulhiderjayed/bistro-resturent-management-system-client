@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form"
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import SocialLogin from "../../Components/SocialLogin/SocialLogin";
 
@@ -11,6 +11,7 @@ const Signup = () => {
     const axiosPublic = useAxiosPublic();
     const { register, handleSubmit, reset, watch, formState: { errors }} = useForm()
     const { createUser, updateUserProfile } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const onSubmit = data => {
         console.log(data);
